@@ -1174,11 +1174,32 @@ function sendWhatsAppMessage() {
   window.open(whatsappLink, '_blank');
 }
 
-function sendWhatsAppMessage1()
-{
-    whatsappLink=`https://wa.me/918851555788?text=Hi`;
-    window.open(whatsappLink, '_blank');
+function sendWhatsAppMessage1() {
+  const url = 'https://script.google.com/macros/s/AKfycbyngnaD1joB2S7IyMnuRY0mzVPgUNbLutWbZF7SfIU9NDhNnb0KU-x4nTfZocjTOCW2/exec';
+  
+  const name = document.getElementById('goodName').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const subject = document.getElementById('winnerName').value.trim();
+  const message = document.getElementById('contactPoint').value.trim();
 
+  const payload = {
+    parentName: name,
+    email: email,
+    childName: subject,
+    phone: message
+  };
+
+  fetch(url, {
+    method: 'POST',
+    // CRITICAL: Use text/plain to avoid the CORS preflight OPTIONS request
+    headers: {
+      'Content-Type': 'text/plain;charset=utf-8' 
+    },
+    body: JSON.stringify(payload)
+  })
+  .then(response => response.json())
+  .then(data => console.log('Success:', data))
+  .catch(error => console.error('Error:', error));
 }
 </script>
 
